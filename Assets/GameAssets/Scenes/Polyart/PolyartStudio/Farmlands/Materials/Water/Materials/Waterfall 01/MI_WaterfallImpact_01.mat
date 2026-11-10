@@ -1,0 +1,53 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MI_WaterfallImpact_01
+  m_Shader: {fileID: 4800000, guid: 1b8c546ec41775944bcc5206816d3079, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: -1
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _ClouNoise:
+        m_Texture: {fileID: 2800000, guid: e11d22ee217267541986f5ecd062b656, type: 3}
+        m_Scale: {x: 0.15, y: 0.15}
+        m_Offset: {x: 0, y: 0}
+    - _Voronoi:
+        m_Texture: {fileID: 2800000, guid: 86787fdb980ba6f4db25ec7e6a61ae32, type: 3}
+        m_Scale: {x: 0.4, y: 1.42}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _Cutoff: 0.5
+    - _DistortionIntensity: 0.1061
+    - _DistortionSpeed: 0.09
+    - _LengthMul: 1.07
+    - _LengthPow: 1.31
+    - _SmoothstepMax: 0.588
+    - _SmoothstepMin: 0.35
+    - _VoronoiSpeed: 0.35
+    - _VoronoiStep: 0.22
+    - _WidthPow: 0.21
+    - __dirty: 0
+    m_Colors:
+    - _Color0: {r: 1, g: 1, b: 1, a: 0}
+  m_BuildTextureStacks: []

@@ -1,0 +1,17 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 23b1c1726e61bf74aa2bb2339711384a, type: 3}
+  m_Name: Pool Asset
+  m_EditorClassIdentifier: Assembly-CSharp::GP.PoolAsset
+  m_PoolName: AudioPool
+  m_Prefab: {fileID: 9144900077953985253, guid: 938fd7c03b1b4544c944d4c71490c8ec, type: 3}
+  m_PoolMaxSize: 5

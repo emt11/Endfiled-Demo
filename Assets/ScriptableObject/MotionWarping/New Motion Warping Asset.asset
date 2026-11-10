@@ -1,0 +1,35 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: d0603f4e8f716fe4191fa8bdb33ad4fd, type: 3}
+  m_Name: New Motion Warping Asset
+  m_EditorClassIdentifier: Assembly-CSharp::GP.MotionWarpingAsset
+  m_SampleClip: {fileID: -4453356587033832775, guid: dfddd0567ebfa194da26d9fe3663cc76, type: 3}
+  m_SampleModel: {fileID: 919132149155446097, guid: b02f7765ace5dff4a866b767512e4a05, type: 3}
+  m_IgnoreY: 1
+  m_WarpRotation: 1
+  m_IsSyncAnimate: 0
+  m_WarpingWindows:
+  - m_WarpWindow: {x: 5, y: 10}
+    m_TOffset: {x: 0, y: 0, z: 1}
+    m_WarpPhaseFrameData:
+    - m_Frame: 5
+      m_MotionData: {x: -0.00000011638472, y: 4.283598e-31, z: 0.9763057}
+    - m_Frame: 6
+      m_MotionData: {x: -0.00000010340328, y: 3.8058097e-31, z: 0.86740947}
+    - m_Frame: 7
+      m_MotionData: {x: -0.000000053670824, y: 1.9753818e-31, z: 0.45022348}
+    - m_Frame: 8
+      m_MotionData: {x: -0.000000019143942, y: 7.0460236e-32, z: 0.160591}
+    - m_Frame: 9
+      m_MotionData: {x: -0.000000005040896, y: 1.8553271e-32, z: 0.042286098}
+    - m_Frame: 10
+      m_MotionData: {x: 0, y: 0, z: 0}

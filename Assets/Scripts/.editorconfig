@@ -1,0 +1,79 @@
+[*.cs]
+indent_style = space
+indent_size = 4
+tab_width = 4
+trim_trailing_whitespace = true
+insert_final_newline = true
+
+csharp_space_after_comma = true
+csharp_space_before_comma = false
+csharp_space_after_keywords_in_control_flow_statements = true
+csharp_space_around_binary_operators = before_and_after
+csharp_space_after_colon_in_inheritance_clause = true
+csharp_space_before_colon_in_inheritance_clause = true
+csharp_space_after_semicolon_in_for_statement = true
+csharp_space_before_semicolon_in_for_statement = false
+csharp_space_after_cast = false
+csharp_space_after_dot = false
+csharp_space_before_dot = false
+csharp_space_between_parentheses = none
+csharp_space_between_method_call_parameter_list_parentheses = false
+csharp_space_between_method_declaration_parameter_list_parentheses = false
+csharp_space_between_square_brackets = false
+
+csharp_new_line_before_open_brace = all
+csharp_new_line_before_else = true
+csharp_new_line_before_catch = true
+csharp_new_line_before_finally = true
+csharp_indent_block_contents = true
+csharp_indent_braces = false
+csharp_indent_case_contents = true
+csharp_indent_switch_labels = true
+csharp_preserve_single_line_statements = true
+csharp_preserve_single_line_blocks = true
+
+# Types, public members and constants use PascalCase; fields retain the project's prefixes.
+dotnet_naming_rule.types_use_pascal_case.severity = suggestion
+dotnet_naming_rule.types_use_pascal_case.symbols = types
+dotnet_naming_rule.types_use_pascal_case.style = pascal_case
+dotnet_naming_symbols.types.applicable_kinds = class, struct, enum, delegate
+dotnet_naming_symbols.types.applicable_accessibilities = *
+
+dotnet_naming_rule.interfaces_use_i_prefix.severity = suggestion
+dotnet_naming_rule.interfaces_use_i_prefix.symbols = interfaces
+dotnet_naming_rule.interfaces_use_i_prefix.style = interface_name
+dotnet_naming_symbols.interfaces.applicable_kinds = interface
+dotnet_naming_symbols.interfaces.applicable_accessibilities = *
+dotnet_naming_style.interface_name.required_prefix = I
+dotnet_naming_style.interface_name.capitalization = pascal_case
+
+dotnet_naming_rule.members_use_pascal_case.severity = suggestion
+dotnet_naming_rule.members_use_pascal_case.symbols = members
+dotnet_naming_rule.members_use_pascal_case.style = pascal_case
+dotnet_naming_symbols.members.applicable_kinds = method, property, event
+dotnet_naming_symbols.members.applicable_accessibilities = *
+
+dotnet_naming_rule.fields_use_m_prefix.severity = suggestion
+dotnet_naming_rule.fields_use_m_prefix.symbols = instance_fields
+dotnet_naming_rule.fields_use_m_prefix.style = instance_field_name
+dotnet_naming_symbols.instance_fields.applicable_kinds = field
+dotnet_naming_symbols.instance_fields.applicable_accessibilities = private, protected
+dotnet_naming_style.instance_field_name.required_prefix = m_
+dotnet_naming_style.instance_field_name.capitalization = pascal_case
+
+dotnet_naming_rule.static_fields_use_s_prefix.severity = suggestion
+dotnet_naming_rule.static_fields_use_s_prefix.symbols = static_fields
+dotnet_naming_rule.static_fields_use_s_prefix.style = static_field_name
+dotnet_naming_symbols.static_fields.applicable_kinds = field
+dotnet_naming_symbols.static_fields.applicable_accessibilities = private, protected
+dotnet_naming_symbols.static_fields.required_modifiers = static
+dotnet_naming_style.static_field_name.required_prefix = s_
+dotnet_naming_style.static_field_name.capitalization = pascal_case
+
+dotnet_naming_rule.constants_use_pascal_case.severity = suggestion
+dotnet_naming_rule.constants_use_pascal_case.symbols = constants
+dotnet_naming_rule.constants_use_pascal_case.style = pascal_case
+dotnet_naming_symbols.constants.applicable_kinds = field
+dotnet_naming_symbols.constants.applicable_accessibilities = *
+dotnet_naming_symbols.constants.required_modifiers = const
+dotnet_naming_style.pascal_case.capitalization = pascal_case

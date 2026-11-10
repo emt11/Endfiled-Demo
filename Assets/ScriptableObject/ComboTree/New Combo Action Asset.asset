@@ -1,0 +1,31 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6af714fe68e02164b84e6ba445146116, type: 3}
+  m_Name: New Combo Action Asset
+  m_EditorClassIdentifier: Assembly-CSharp::GP.ComboTreeAsset
+  m_RootIds: ac744c74
+  m_TreeDataLink:
+    m_SerializedData:
+    - Key: 1951167660
+      Value:
+        m_Id: 1951167660
+        m_ParentId: -1
+        m_ChildIds: d3c2b74c
+        m_ComboActionData:
+          m_ComboActionAsset: {fileID: 11400000, guid: 7b9c63edaf1e52e4ba31fbed2384b1a4, type: 2}
+    - Key: 1287111379
+      Value:
+        m_Id: 1287111379
+        m_ParentId: 1951167660
+        m_ChildIds: 
+        m_ComboActionData:
+          m_ComboActionAsset: {fileID: 11400000, guid: 78753f88b21342b41bd5c2e477fa2017, type: 2}

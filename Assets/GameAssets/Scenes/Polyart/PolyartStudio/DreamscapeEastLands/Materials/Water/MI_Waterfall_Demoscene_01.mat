@@ -1,0 +1,140 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!21 &2100000
+Material:
+  serializedVersion: 8
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_Name: MI_Waterfall_Demoscene_01
+  m_Shader: {fileID: 4800000, guid: 970df35a136911348bd5e77528977cc4, type: 3}
+  m_Parent: {fileID: 0}
+  m_ModifiedSerializedProperties: 0
+  m_ValidKeywords: []
+  m_InvalidKeywords: []
+  m_LightmapFlags: 4
+  m_EnableInstancingVariants: 0
+  m_DoubleSidedGI: 0
+  m_CustomRenderQueue: 2570
+  stringTagMap: {}
+  disabledShaderPasses: []
+  m_LockedProperties: 
+  m_SavedProperties:
+    serializedVersion: 3
+    m_TexEnvs:
+    - _CloudNoise:
+        m_Texture: {fileID: 2800000, guid: e11d22ee217267541986f5ecd062b656, type: 3}
+        m_Scale: {x: 0.2, y: 0.5}
+        m_Offset: {x: 0, y: 0}
+    - _ColorVariationTexture:
+        m_Texture: {fileID: 2800000, guid: 5592d5353472a1840880192b0a423e4c, type: 3}
+        m_Scale: {x: 0.82, y: 5}
+        m_Offset: {x: 0, y: 0}
+    - _NoiseLines:
+        m_Texture: {fileID: 2800000, guid: 9a588b981540bb741808489eaaf22795, type: 3}
+        m_Scale: {x: 4, y: 9}
+        m_Offset: {x: 0, y: 0}
+    - _T_WaterfalEdgeOpacity:
+        m_Texture: {fileID: 2800000, guid: 6c6e2a23ad2379b439393259ddaff19d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _TextureSample4:
+        m_Texture: {fileID: 2800000, guid: 6c6e2a23ad2379b439393259ddaff19d, type: 3}
+        m_Scale: {x: 2, y: 2}
+        m_Offset: {x: 0, y: 0}
+    - _TopVoronoi:
+        m_Texture: {fileID: 2800000, guid: 86787fdb980ba6f4db25ec7e6a61ae32, type: 3}
+        m_Scale: {x: 2.5, y: 2.5}
+        m_Offset: {x: 0, y: 0}
+    - _WaterfallEdge:
+        m_Texture: {fileID: 2800000, guid: 6c6e2a23ad2379b439393259ddaff19d, type: 3}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    - _WaterfallStartNoise:
+        m_Texture: {fileID: 2800000, guid: 5592d5353472a1840880192b0a423e4c, type: 3}
+        m_Scale: {x: 0.8, y: 3.2}
+        m_Offset: {x: 0, y: 0}
+    - _texcoord:
+        m_Texture: {fileID: 0}
+        m_Scale: {x: 1, y: 1}
+        m_Offset: {x: 0, y: 0}
+    m_Ints: []
+    m_Floats:
+    - _BottomFoamDistortion: 0.077
+    - _BottomFoamExtendMax: 0.658
+    - _BottomFoamExtendMin: 0.06
+    - _BottomFoamSpeed: -0.38
+    - _BottomFoamStep: 0.181
+    - _BottomFoamWidthMax: 0.914
+    - _BottomFoamWidthMin: 0.2
+    - _BottomFoamWidthPow: -0.05
+    - _BottomOpacityCutout: 1
+    - _CloudNoiseSpeed: -0.03
+    - _ColorVariationContrast: 0.37
+    - _ColorVariationDepth: 0.192
+    - _ColorVariationSpeed: -0.94
+    - _Cutoff: 0.5
+    - _DEBUG: 0
+    - _DebugCloudNoise: 0
+    - _DebugEdgeFoam: 0
+    - _DebugFlowLines: 0
+    - _DebugNormals: 1
+    - _DebugVoronoiFoam: 0
+    - _DebugWaterColor: 0
+    - _EdgeFoamDistance: 1.16
+    - _EdgeFoamOpacity: 0.54
+    - _EdgeFoamStep: 0.165
+    - _InitialOpacityGradience: 1.1
+    - _NoiseLinesDistortion: 0.3
+    - _NoiseLinesHeightlerp: -0.67
+    - _NoiseLinesOpacity: 0.61
+    - _NoiseLinesPow: 1
+    - _NoiseLinesReveal: 0.45
+    - _NoiseLinesSpeed: -0.5
+    - _NoiseLinesStep: 0
+    - _NormalStrength: 0.62
+    - _SmallDots1Distortion: 0.0341
+    - _SmallDots1Opacity: 0.313
+    - _SmallDots1Speed: -0.42
+    - _SmallDots1Step: 0.752
+    - _SmallDots2Distortion: 0.0295
+    - _SmallDots2Opacity: 1
+    - _SmallDots2Speed: -0.6
+    - _SmallDots2Step: 0.81
+    - _Smoothness: 0.872
+    - _StartNoiseHarshDistortion: 0.069
+    - _StartNoiseHarshSpeed: -0.71
+    - _StartNoiseHarshStep: 0.156
+    - _StartNoiseharshBottomBlend: 0.326
+    - _StartNoiseharshBottomPosition: 0.188
+    - _StartNoiseharshTopBlend: 0.099
+    - _StartNoiseharshTopPosition: 0.18
+    - _TopVoronoiDistortion: 0.103
+    - _TopVoronoiExtendMax: 0.413
+    - _TopVoronoiExtendMin: -0.02
+    - _TopVoronoiOpacity: 0
+    - _TopVoronoiSpeed: -0.6
+    - _TopVoronoiStep: 0.251
+    - _WaterfallEdgeFoamOpacity: 0.5
+    - _WaterfallEdgeSpeed: 0.45
+    - _WaterfallStartNoiseDepth: 0.049
+    - _WaterfallStartNoiseDistortion: 0.171
+    - _WaterfallStartNoiseExtend: 0.146
+    - _WaterfallStartNoiseOpacity: 0.838
+    - _WaterfallStartNoisePosition: 0.314
+    - _WaterfallStartNoisePosition1: 0.289
+    - _WaterfallStartNoisePow: 0
+    - _WaterfallStartNoiseSpeed: -0.89
+    - _WaterfallStartNoiseStep: 0
+    - __dirty: 0
+    m_Colors:
+    - _Color1: {r: 0.07734425, g: 0.5534161, b: 0.5773585, a: 0}
+    - _Color2: {r: 0.043481633, g: 0.52655995, b: 0.7433963, a: 0}
+    - _Color3: {r: 0, g: 0.8939395, b: 1, a: 0}
+    - _Color4: {r: 1, g: 1, b: 1, a: 0}
+    - _NoiseLinesScale: {r: 0.57, g: 15.36, b: 0, a: 0}
+    - _SmallDots1Scale: {r: 0.7, g: 2.2, b: 0, a: 0}
+    - _SmallDots2Scale: {r: 0.62, g: 2.24, b: -0.17, a: 0}
+    - _StartNoiseHarshTiling: {r: 0.71, g: 4.3, b: 0, a: 0}
+  m_BuildTextureStacks: []

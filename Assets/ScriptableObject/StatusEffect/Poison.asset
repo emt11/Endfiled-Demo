@@ -1,0 +1,33 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: ce91e67e94658c54396373be5b77688c, type: 3}
+  m_Name: Poison
+  m_EditorClassIdentifier: Assembly-CSharp::GP.StatusEffectAsset
+  m_StatusEffectName: Poison
+  m_StatusEffectType: 2
+  m_StatusEffectValue: 10
+  m_IsStackable: 1
+  m_StackValue: 1
+  m_StackMaxCount: 5
+  m_IsDurationable: 1
+  m_Duration: 3
+  m_TickInterval: 1
+  m_StatusEffectStrategies:
+  - rid: 3230589621322383442
+  references:
+    version: 2
+    RefIds:
+    - rid: 3230589621322383442
+      type: {class: PerioicStatusEffectStrategy, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_EffectValueName: 0
+        m_EffectValueOperation: 1
