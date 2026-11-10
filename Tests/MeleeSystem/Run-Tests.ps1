@@ -16,6 +16,7 @@ Copy-Item -LiteralPath (Join-Path $projectRoot 'Assets\Plugins\UniTask\Runtime')
 Copy-Item -LiteralPath (Join-Path $projectRoot 'Assets\Plugins\Sirenix\Assemblies\Sirenix.OdinInspector.Attributes.dll') -Destination $pluginRoot
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'MeleeStateMachineRegressionTests.cs') -Destination $editorRoot
 Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'MeleeInputRegressionTests.cs') -Destination $editorRoot
+Copy-Item -LiteralPath (Join-Path $PSScriptRoot 'MeleeCombatRegressionTests.cs') -Destination $editorRoot
 Copy-Item -LiteralPath (Join-Path $projectRoot 'ProjectSettings\ProjectVersion.txt') -Destination $settingsRoot
 $manifest = Get-Content -LiteralPath (Join-Path $projectRoot 'Packages\manifest.json') -Raw -Encoding UTF8 | ConvertFrom-Json
 $dependencies = [ordered]@{}

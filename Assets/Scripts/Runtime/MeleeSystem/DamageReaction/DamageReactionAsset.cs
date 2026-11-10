@@ -13,13 +13,18 @@ namespace GP
 
         public AnimationAsset FindReaction(HitDirection direction, int damage)
         {
-            if (m_Reactions == null) return null;
+            return FindReactionResult(direction, damage).Animation;
+        }
+
+        public DamageReactionResult FindReactionResult(HitDirection direction, int damage)
+        {
+            if (m_Reactions == null) return default;
             foreach (var reaction in m_Reactions)
             {
                 if (reaction != null && reaction.Matches(direction, damage) && reaction.Animation)
-                    return reaction.Animation;
+                    return reaction.Result;
             }
-            return null;
+            return default;
         }
     }
 }

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: d0603f4e8f716fe4191fa8bdb33ad4fd, type: 3}
-  m_Name: New Motion Warping Asset
+  m_Name: MotionWarping Asset - DK_Attack2
   m_EditorClassIdentifier: Assembly-CSharp::GP.MotionWarpingAsset
-  m_SampleClip: {fileID: -4453356587033832775, guid: dfddd0567ebfa194da26d9fe3663cc76, type: 3}
+  m_SampleClip: {fileID: -6794547245362133772, guid: 6f7b47017836fce4a83c6b27c1ebe8d6, type: 3}
   m_SampleModel: {fileID: 919132149155446097, guid: b02f7765ace5dff4a866b767512e4a05, type: 3}
   m_IgnoreY: 1
   m_WarpRotation: 1
@@ -22,14 +22,14 @@ MonoBehaviour:
     m_TOffset: {x: 0, y: 0, z: 1}
     m_WarpPhaseFrameData:
     - m_Frame: 5
-      m_MotionData: {x: -0.00000011638472, y: 4.283598e-31, z: 0.9763057}
+      m_MotionData: {x: 0.000000033627387, y: 4.5688318e-32, z: 0.75223196}
     - m_Frame: 6
-      m_MotionData: {x: -0.00000010340328, y: 3.8058097e-31, z: 0.86740947}
+      m_MotionData: {x: 0.000000028076766, y: 3.8146893e-32, z: 0.6280667}
     - m_Frame: 7
-      m_MotionData: {x: -0.000000053670824, y: 1.9753818e-31, z: 0.45022348}
+      m_MotionData: {x: 0.000000017585352, y: 2.3892584e-32, z: 0.39337772}
     - m_Frame: 8
-      m_MotionData: {x: -0.000000019143942, y: 7.0460236e-32, z: 0.160591}
+      m_MotionData: {x: 0.0000000072078623, y: 9.793063e-33, z: 0.16123718}
     - m_Frame: 9
-      m_MotionData: {x: -0.000000005040896, y: 1.8553271e-32, z: 0.042286098}
+      m_MotionData: {x: 0.000000002717186, y: 3.691743e-33, z: 0.060782433}
     - m_Frame: 10
       m_MotionData: {x: 0, y: 0, z: 0}

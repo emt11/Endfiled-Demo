@@ -169,7 +169,7 @@ namespace GP
                 makeItem = MakeItem, // 构建Node可视化元素模板
                 bindItem = BindItem, // 绑定数据到可视化元素
                 selectionType = SelectionType.Single,
-                reorderable = false, // 是否可以通过鼠标来拖拽元素来改变它们的顺序。
+                reorderable = false, // 是否可以通过鼠标来拖拽元素来改变它们的顺序
                 showAlternatingRowBackgrounds = AlternatingRowBackground.All, // 此属性控制集合视图行的背景色是否交替显示
             };
 
@@ -263,7 +263,7 @@ namespace GP
 
                 if (m_TreeView.selectedIndex != -1)
                 {
-                    // 当主要数据源为发生大的改变时，不要去重建树，而是刷新。只有在数据源发生改变时，再去重建树
+                    // 当主要数据源为发生大的改变时，不要去重建树，而是刷新；只有在数据源发生改变时，再去重建树
                     m_TreeView.RefreshItem(m_TreeView.selectedIndex);
                 }
             });

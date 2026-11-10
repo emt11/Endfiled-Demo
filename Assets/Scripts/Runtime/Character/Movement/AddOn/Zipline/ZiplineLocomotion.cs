@@ -148,7 +148,7 @@ namespace GP
             characterPosition += positionOffset;
 
             /*
-             * 如果方向未反转时，角色的朝向与目标方向的点积如果是整数，表示角色方向与目标方向一致。
+             * 如果方向未反转时，角色的朝向与目标方向的点积如果是整数，表示角色方向与目标方向一致
              */
 
             m_Locomotion.SetCharacterPosition(characterPosition); // 应用位置

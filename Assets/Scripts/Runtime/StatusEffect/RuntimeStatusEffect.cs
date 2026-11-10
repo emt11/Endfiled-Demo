@@ -33,10 +33,10 @@ namespace GP
         public bool IsRunning { get; private set; }
         public bool IsCompleted { get; private set; }
 
-        /// <summary>在策略清理完成后通知；自然到期、主动取消和异常退出只通知一次。</summary>
+        /// <summary>在策略清理完成后通知；自然到期、主动取消和异常退出只通知一次</summary>
         public event Action<RuntimeStatusEffect> Completed;
 
-        /// <summary>未启动时为完整持续时间，运行时为剩余时间，结束后为 0。</summary>
+        /// <summary>未启动时为完整持续时间，运行时为剩余时间，结束后为 0</summary>
         public double RemainingTime => IsCompleted ? 0d
             : IsRunning ? Math.Max(0d, m_EndTime - Time.timeAsDouble) : m_Duration;
 
@@ -87,7 +87,7 @@ namespace GP
             RunAsync(m_CancellationTokenSource.Token).Forget();
         }
 
-        /// <summary>仅更新层数，不刷新持续时间，也不额外触发一次周期效果。</summary>
+        /// <summary>仅更新层数，不刷新持续时间，也不额外触发一次周期效果</summary>
         public bool AddStacks(int stackCount)
         {
             if (IsCompleted || !m_IsStackable || stackCount <= 0) return false;
@@ -119,7 +119,7 @@ namespace GP
             cancellationTokenSource?.Cancel();
             cancellationTokenSource?.Dispose();
 
-            // 策略或属性事件可能同步取消效果，等当前策略返回后再执行移除逻辑。
+            // 策略或属性事件可能同步取消效果，等当前策略返回后再执行移除逻辑
             if (!m_IsInvokingStrategy) Complete();
         }
 
@@ -132,7 +132,7 @@ namespace GP
                 if (IsCompleted) return;
                 TickStrategies();
 
-                // 首次立即触发；使用缩放后的游戏时间，在到期时刻之前补发长帧经过的周期。
+                // 首次立即触发；使用缩放后的游戏时间，在到期时刻之前补发长帧经过的周期
                 while (!IsCompleted && m_HasDuration && Time.timeAsDouble < m_EndTime)
                 {
                     await UniTask.NextFrame(PlayerLoopTiming.Update, cancellationToken);
@@ -154,7 +154,7 @@ namespace GP
             }
             catch (OperationCanceledException) when (cancellationToken.IsCancellationRequested)
             {
-                // 驱散、角色清理等主动取消属于正常结束。
+                // 驱散、角色清理等主动取消属于正常结束
             }
             finally
             {
@@ -170,7 +170,7 @@ namespace GP
                 foreach (var strategy in m_Strategies)
                 {
                     if (IsCompleted) break;
-                    // 即使应用途中抛出异常，也让已经进入的策略有机会清理部分操作。
+                    // 即使应用途中抛出异常，也让已经进入的策略有机会清理部分操作
                     m_AppliedStrategyCount++;
                     strategy.OnApplyEffect(this);
                 }
@@ -211,7 +211,7 @@ namespace GP
             if (m_IsCleanedUp) return;
             m_IsCleanedUp = true;
 
-            // 与应用顺序相反地释放；一个策略清理失败不影响其他策略和管理器收尾。
+            // 与应用顺序相反地释放；一个策略清理失败不影响其他策略和管理器收尾
             for (int i = m_AppliedStrategyCount - 1; i >= 0; i--)
             {
                 try { m_Strategies[i].OnRemoveEffect(this); }

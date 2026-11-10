@@ -19,7 +19,6 @@ namespace GP
 
         [SerializeField, BoxGroup("Set", showLabel: false)]
         private string m_GraphName = "自定义 Playable";
-        public AnimationAsset AnimationAsset;
 
         private Animator m_Animator;
         private AnimationMotionWarpingControl m_WarpingControl;

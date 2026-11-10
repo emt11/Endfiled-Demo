@@ -5,7 +5,7 @@ namespace GP
 {
     public class RuntimeStatusEffectManager : IDisposable
     {
-        // 资产身份决定是否为同一效果，避免名称哈希碰撞和同名资产互相覆盖。
+        // 资产身份决定是否为同一效果，避免名称哈希碰撞和同名资产互相覆盖
         private readonly Dictionary<StatusEffectAsset, RuntimeStatusEffect> m_RunningStatusEffects = new Dictionary<StatusEffectAsset, RuntimeStatusEffect>();
         private bool m_IsClearing;
         private bool m_IsDisposed;
@@ -78,7 +78,7 @@ namespace GP
             return removed;
         }
 
-        /// <summary>取消所有效果，保留管理器以供对象池下一次使用。</summary>
+        /// <summary>取消所有效果，保留管理器以供对象池下一次使用</summary>
         public void Clear()
         {
             if (m_IsClearing) return;
@@ -99,7 +99,7 @@ namespace GP
             }
         }
 
-        /// <summary>角色销毁时调用；清理后不允许再添加效果。</summary>
+        /// <summary>角色销毁时调用；清理后不允许再添加效果</summary>
         public void Dispose()
         {
             if (m_IsDisposed) return;

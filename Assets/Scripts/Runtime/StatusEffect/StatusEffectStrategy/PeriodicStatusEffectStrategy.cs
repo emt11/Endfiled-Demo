@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GP
 {
-    /// <summary>每次触发修改一次当前属性值，不保存角色状态，也不自行启动循环。</summary>
+    /// <summary>每次触发修改一次当前属性值，不保存角色状态，也不自行启动循环</summary>
     [Serializable]
     public class PeriodicStatusEffectStrategy : IStatusEffectStrategy
     {
@@ -28,7 +28,7 @@ namespace GP
 
         public void OnRemoveEffect(RuntimeStatusEffect effect)
         {
-            // 已经产生的伤害或治疗不会在移除状态时撤销。
+            // 已经产生的伤害或治疗不会在移除状态时撤销
         }
     }
 }

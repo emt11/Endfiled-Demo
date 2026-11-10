@@ -2,7 +2,7 @@ using System;
 
 namespace GP
 {
-    /// <summary>只保留最近一次有效输入；新输入覆盖旧输入，消费成功或过期后清空。</summary>
+    /// <summary>只保留最近一次有效输入；新输入覆盖旧输入，消费成功或过期后清空</summary>
     public sealed class MeleeInputBuffer
     {
         public const float DefaultLifetime = 0.5f;
@@ -26,7 +26,7 @@ namespace GP
             m_HasCommand = true;
         }
 
-        /// <summary>取出并移除未过期输入；成功仅表示取得命令，不代表攻击已执行。</summary>
+        /// <summary>取出并移除未过期输入；成功仅表示取得命令，不代表攻击已执行</summary>
         public bool TryConsume(float currentTime, out MeleeInputCommand command)
         {
             command = default;

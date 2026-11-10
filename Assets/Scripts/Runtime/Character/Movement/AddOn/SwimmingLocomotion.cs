@@ -14,7 +14,7 @@ namespace GP
         private const float HeadDepth = 1.6f; // 头部
         /*
          * 游泳行为:
-         * 1. 角色进入水域后，激活该脚本。脚本会监测角色的涉水深度
+         * 1. 角色进入水域后，激活该脚本，脚本会监测角色的涉水深度
          * 2. 当角色的涉水深度到达脖子区域时，角色会进入游泳状态
          * 3. 如果角色从高空落下，则角色会沉入水中
          */
@@ -124,7 +124,7 @@ namespace GP
 
             /*
              * 1. 如果此时还未开始游泳，那么优先判断 TORSO 区域是否被水覆盖了(也就是角色的胸部是否被水覆盖了)
-             * 2. 当 TORSO 区域被水覆盖了，说明开始游泳了。那么 m_IsSwimming 此时为 true
+             * 2. 当 TORSO 区域被水覆盖了，说明开始游泳了，那么 m_IsSwimming 此时为 true
              * 3. 再次判断水是否高于腰部，那肯定是高于的，所以也会返回true
              * 4. 当角色慢慢走出水，走到水齐腰处时，m_IsSwimming 会返回 false 那么 m_IsSwimming 就是为 false
              */
@@ -246,12 +246,12 @@ namespace GP
             var matrix = Gizmos.matrix; // 保存原始矩阵
             var position = new Vector3(CharacterCenter().x, m_WaterHeight, CharacterCenter().z); // 设置辅助图形的目标位置旋转和缩放
             Gizmos.color = Color.blue; // 设置颜色
-            Gizmos.matrix = Matrix4x4.TRS(position, Quaternion.identity, new Vector3(1, 0.001f, 1)); // 控制辅助图形的矩阵让其平移到目标位置，没有旋转，缩放Y轴。
+            Gizmos.matrix = Matrix4x4.TRS(position, Quaternion.identity, new Vector3(1, 0.001f, 1)); // 控制辅助图形的矩阵让其平移到目标位置，没有旋转，缩放Y轴
             Gizmos.DrawWireSphere(Vector3.zero, .5f); // 由于上面我们设置了矩阵，所以这里的球形辅助图形会被平移到目标位置
             Gizmos.matrix = matrix; // 恢复矩阵，避免控制其它辅助图形
 
             Gizmos.color = Color.red; // 设置颜色
-            Gizmos.matrix = Matrix4x4.TRS(CharacterCenter(), Quaternion.identity, new Vector3(1, 0.001f, 1)); // 控制辅助图形的矩阵让其平移到目标位置，没有旋转，缩放Y轴。
+            Gizmos.matrix = Matrix4x4.TRS(CharacterCenter(), Quaternion.identity, new Vector3(1, 0.001f, 1)); // 控制辅助图形的矩阵让其平移到目标位置，没有旋转，缩放Y轴
             Gizmos.DrawWireSphere(Vector3.zero, .3f); // 由于上面我们设置了矩阵，所以这里的球形辅助图形会被平移到目标位置
             Gizmos.matrix = matrix; // 恢复矩阵，避免控制其它辅助图形
         }

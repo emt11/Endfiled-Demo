@@ -11,9 +11,9 @@ namespace GP
         /// <param name="angle">角度值</param>
         public static float NormalizeAngle360(float angle)
         {
-            angle %= 360f; // C# 余数与被除数同号；负角度需要再加 360。
+            angle %= 360f; // C# 余数与被除数同号；负角度需要再加 360
 
-            if (angle < 0f) // 保险。当浮点精度不准确会有用。
+            if (angle < 0f) // 保险，当浮点精度不准确会有用
             {
                 angle += 360f;
             }
@@ -38,7 +38,7 @@ namespace GP
         /// <param name="max"></param>
         public static float ClampAngle(float angle, float min, float max)
         {
-            // 将角度和上下限统一到 [-180, 180) 后裁剪。
+            // 将角度和上下限统一到 [-180, 180) 后裁剪
             angle = Mathf.Repeat(angle, 360f);
             if (angle > 180f) angle -= 360f;
 

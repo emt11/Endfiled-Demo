@@ -2,7 +2,7 @@ using System;
 
 namespace GP
 {
-    /// <summary>管理属性修饰器，并根据基础值计算属性上限。</summary>
+    /// <summary>管理属性修饰器，并根据基础值计算属性上限</summary>
     public class ValueAttributeModifierCalculator
     {
         private readonly ValueAttributeModifierCollection m_Modifiers = new ValueAttributeModifierCollection();

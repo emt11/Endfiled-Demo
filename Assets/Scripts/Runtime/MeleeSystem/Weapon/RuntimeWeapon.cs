@@ -4,10 +4,11 @@ using UnityEngine;
 
 namespace GP
 {
-    /// <summary>持有某个角色创建的武器检测器；由装备它的战斗控制器负责释放。</summary>
+    /// <summary>持有某个角色创建的武器检测器；由装备它的战斗控制器负责释放</summary>
     public sealed class RuntimeWeapon : IDisposable
     {
         private readonly AnimationSource m_AnimationSource;
+        private readonly IReadOnlyList<WeaponAttachmentBinding> m_AttachmentBindings;
         private readonly Dictionary<WeaponAttachmentPoint, Hitbox> m_Hitboxes =
             new Dictionary<WeaponAttachmentPoint, Hitbox>();
         private readonly List<Hitbox> m_ActiveHitboxes = new List<Hitbox>();
@@ -18,10 +19,12 @@ namespace GP
         public bool IsEquipped { get; private set; }
         public IReadOnlyList<Hitbox> ActiveHitboxes => m_ActiveHitboxesView;
 
-        public RuntimeWeapon(AnimationSource animationSource, WeaponAsset asset)
+        public RuntimeWeapon(AnimationSource animationSource, WeaponAsset asset,
+            IReadOnlyList<WeaponAttachmentBinding> attachmentBindings = null)
         {
             m_AnimationSource = animationSource ? animationSource : throw new ArgumentNullException(nameof(animationSource));
             Asset = asset ? asset : throw new ArgumentNullException(nameof(asset));
+            m_AttachmentBindings = attachmentBindings ?? Array.Empty<WeaponAttachmentBinding>();
             m_ActiveHitboxesView = m_ActiveHitboxes.AsReadOnly();
         }
 
@@ -44,7 +47,7 @@ namespace GP
         }
 
         /// <summary>
-        /// 开启或关闭指定挂载部位的命中检测。
+        /// 开启或关闭指定挂载部位的命中检测
         /// 攻击判定窗口开始时开启，结束时关闭
         /// </summary>
         public void SetHitboxesEnabled(WeaponAttachmentPoint points, bool enabled)
@@ -113,13 +116,22 @@ namespace GP
                     continue;
                 }
 
-                var hitbox = attachment.CreateHitbox(animator);
+                var hitbox = attachment.CreateHitbox(animator, FindAttachmentTarget(attachment.AttachmentPoint));
                 if (!hitbox) continue;
                 hitbox.AttachmentPoint = attachment.AttachmentPoint;
                 hitbox.EndDetection();
                 hitbox.enabled = false;
                 m_Hitboxes.Add(attachment.AttachmentPoint, hitbox);
             }
+        }
+
+        private Transform FindAttachmentTarget(WeaponAttachmentPoint point)
+        {
+            foreach (var binding in m_AttachmentBindings)
+            {
+                if (binding.AttachmentPoint == point) return binding.Target;
+            }
+            return null;
         }
     }
 }

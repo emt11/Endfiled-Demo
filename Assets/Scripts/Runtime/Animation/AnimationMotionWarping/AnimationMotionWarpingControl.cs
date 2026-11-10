@@ -84,7 +84,7 @@ namespace GP
                 m_PhaseEndFrame = window.y;
                 if (frame > m_PhaseEndFrame)
                 {
-                    // 跨过的窗口不再补做位移，同帧继续查找下一个有效阶段。
+                    // 跨过的窗口不再补做位移，同帧继续查找下一个有效阶段
                     m_PhaseIndex++;
                     continue;
                 }

@@ -2,7 +2,7 @@ using System;
 
 namespace GP
 {
-    /// <summary>管理战斗模式；连招中的换招由控制器重建攻击上下文，不重入 Attack 状态。</summary>
+    /// <summary>管理战斗模式；连招中的换招由控制器重建攻击上下文，不重入 Attack 状态</summary>
     public sealed class MeleeStateMachine
     {
         private readonly MeleeIdleState m_IdleState;
@@ -18,7 +18,7 @@ namespace GP
             CombatController = combatController ? combatController : throw new ArgumentNullException(nameof(combatController));
             m_IdleState = new MeleeIdleState(this);
             m_AttackState = new MeleeAttackState(this);
-            m_ActionState = new MeleeActionState();
+            m_ActionState = new MeleeActionState(this);
             EnterIdle();
         }
 

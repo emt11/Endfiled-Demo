@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GP
 {
-    /// <summary>按钮的输入识别配置；Charge 模式同时支持短按和蓄力。</summary>
+    /// <summary>按钮的输入识别配置；Charge 模式同时支持短按和蓄力</summary>
     [Serializable]
     public class WeaponInputConfig
     {

@@ -3,7 +3,7 @@ using UnityEngine;
 
 namespace GP
 {
-    /// <summary>角色属性与状态效果的 Unity 宿主，供背包、技能等组件访问。</summary>
+    /// <summary>角色属性与状态效果的 Unity 宿主，供背包、技能等组件访问</summary>
     [DisallowMultipleComponent]
     public class CharacterAttributeComponent : MonoBehaviour
     {
@@ -23,7 +23,7 @@ namespace GP
             Deinitialize();
         }
 
-        /// <summary>可重复调用，也供对象池复用及其他组件在 Awake 中访问。</summary>
+        /// <summary>可重复调用，也供对象池复用及其他组件在 Awake 中访问</summary>
         public void Initialize()
         {
             if (m_CharacterAttribute == null)

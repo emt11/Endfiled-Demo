@@ -4,7 +4,7 @@ using UnityEngine;
 
 namespace GP
 {
-    /// <summary>在前后两次姿态之间分段查询，降低快速挥动时的漏检概率。</summary>
+    /// <summary>在前后两次姿态之间分段查询，降低快速挥动时的漏检概率</summary>
     [Serializable]
     public abstract class HitboxQuery : IHitboxQuery
     {
@@ -80,7 +80,7 @@ namespace GP
                 {
                     count = Overlap(position, rotation, scale, m_ColliderBuffer, layerMask);
                     if (count < m_ColliderBuffer.Length) break;
-                    // 缓冲区满时扩容并重新查询，避免默默丢掉第 21 个及后续目标。
+                    // 缓冲区满时扩容并重新查询，避免默默丢掉第 21 个及后续目标
                     Array.Resize(ref m_ColliderBuffer, m_ColliderBuffer.Length * 2);
                 }
 

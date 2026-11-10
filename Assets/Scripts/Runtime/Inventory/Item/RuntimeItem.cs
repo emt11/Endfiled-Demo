@@ -93,7 +93,7 @@ namespace GP
                     else if (!action.CanExecute(this)) return false;
                 }
 
-                // 同一物品的多个分解操作也属于同一批产物，不能逐个占用剩余空间。
+                // 同一物品的多个分解操作也属于同一批产物，不能逐个占用剩余空间
                 if (decomposition != null && !m_ItemInventory.CharacterBag.TryAddItems(decomposition)) return false;
                 foreach (var action in actions)
                     if (action is not DecomposeAction) action.Execute(this);

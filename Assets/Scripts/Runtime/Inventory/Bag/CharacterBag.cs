@@ -57,7 +57,7 @@ namespace GP
             foreach (var pair in totals)
                 GetOrCreateInventory(pair.Key.ItemCategory).AddBatchItem(pair.Key, pair.Value, addedItems);
 
-            // 所有分类写入完毕后再通知，事件回调只能看到完整产物。
+            // 所有分类写入完毕后再通知，事件回调只能看到完整产物
             foreach (var added in addedItems)
                 added.inventory.NotifyItemAdded(added.item, added.count);
             return true;

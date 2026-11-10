@@ -39,7 +39,7 @@ namespace GP
 
         private void Awake()
         {
-            // 以下辅助手动创建单例脚本于场景中。
+            // 以下辅助手动创建单例脚本于场景中
             if (s_Instance != null && s_Instance != this)
             {
                 Destroy(gameObject);

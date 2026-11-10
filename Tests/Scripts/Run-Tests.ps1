@@ -1,7 +1,8 @@
 param(
     [Parameter(Mandatory = $true)] [string]$UnityEditorPath,
     [string]$ReportDirectory,
-    [string]$ValidationProjectPath
+    [string]$ValidationProjectPath,
+    [string]$TestFilter
 )
 
 $ErrorActionPreference = 'Stop'
@@ -66,6 +67,7 @@ if (Test-Path -LiteralPath (Join-Path $validationRoot 'results.json')) { Remove-
 Write-Output "Validation project: $validationRoot"
 $arguments = @('-batchmode', '-nographics', '-projectPath', ('"' + $validationRoot + '"'),
     '-executeMethod', 'ScriptCleanupRegressionTests.Run', '-logFile', ('"' + $logPath + '"'))
+if ($TestFilter) { $arguments += @('-arpgTestFilter', ('"' + $TestFilter + '"')) }
 $process = Start-Process -FilePath $UnityEditorPath -ArgumentList $arguments -WindowStyle Hidden -PassThru
 $timer = [System.Diagnostics.Stopwatch]::StartNew()
 while (!$process.WaitForExit(1000))

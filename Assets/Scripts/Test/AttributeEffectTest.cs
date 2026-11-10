@@ -31,7 +31,7 @@ namespace GP
 
         private bool EnsureRuntimeInitialized()
         {
-            // ContextMenu 在编辑模式下也能调用，但此时 Awake 尚未创建运行时数据。
+            // ContextMenu 在编辑模式下也能调用，但此时 Awake 尚未创建运行时数据
             if (!Application.isPlaying)
             {
                 Debug.LogWarning("请先进入 Play Mode，再执行属性和效果测试。", this);
@@ -45,7 +45,7 @@ namespace GP
                 return false;
             }
 
-            // Play Mode 中脚本重载后，运行时字段可能丢失；重建时避免重复订阅。
+            // Play Mode 中脚本重载后，运行时字段可能丢失；重建时避免重复订阅
             m_Effects?.Dispose();
             m_Attributes.Initialize();
             m_Attributes.ValueChanged -= ValueChanged;

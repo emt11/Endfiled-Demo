@@ -23,6 +23,10 @@ namespace GP
         private WeaponAttachment[] m_Attachments = Array.Empty<WeaponAttachment>();
         [SerializeField, LabelText("受击反应")]
         private DamageReactionAsset m_DamageReactions;
+        [SerializeField, LabelText("攻击被完美格挡后的反应")]
+        private DamageReactionAsset m_ParriedReactions;
+        [SerializeField, LabelText("防御配置")]
+        private DefenseAsset m_Defense;
         [SerializeField, LabelText("左键输入")]
         private WeaponInputConfig m_PrimaryInput;
         [SerializeField, LabelText("右键输入")]
@@ -37,6 +41,8 @@ namespace GP
         public ComboTreeAsset ComboTree => m_ComboTree;
         public IReadOnlyList<WeaponAttachment> Attachments => m_Attachments ?? Array.Empty<WeaponAttachment>();
         public DamageReactionAsset DamageReactions => m_DamageReactions;
+        public DamageReactionAsset ParriedReactions => m_ParriedReactions;
+        public DefenseAsset Defense => m_Defense;
         public WeaponInputConfig PrimaryInput => m_PrimaryInput;
         public WeaponInputConfig SecondaryInput => m_SecondaryInput;
         public WeaponInputConfig UtilityInput => m_UtilityInput;

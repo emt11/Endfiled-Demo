@@ -14,12 +14,16 @@ namespace GP
 
         public WeaponAttachmentPoint AttachmentPoint => m_AttachmentPoint;
 
-        public Hitbox CreateHitbox(Animator animator)
+        public Hitbox CreateHitbox(Animator animator, Transform parent = null)
         {
-            if (!m_HitboxPrefab || !animator || !animator.isHuman) return null;
-            if (!TryGetBone(out var bone)) return null;
-            var parent = animator.GetBoneTransform(bone);
-            if (!parent) return null;
+            if (!m_HitboxPrefab || !animator) return null;
+
+            if (!parent)
+            {
+                if (!animator.isHuman || !TryGetBone(out var bone)) return null;
+                parent = animator.GetBoneTransform(bone);
+                if (!parent) return null;
+            }
 
             var instance = UnityEngine.Object.Instantiate(m_HitboxPrefab, parent, false);
             instance.transform.localScale = m_HitboxPrefab.transform.localScale;
@@ -40,9 +44,21 @@ namespace GP
                 WeaponAttachmentPoint.Spine => HumanBodyBones.Spine,
                 _ => HumanBodyBones.LastBone
             };
-            // 每个实例只挂在一个骨骼上；组合标记仅用于动作和窗口筛选。
+            // 每个实例只对应一个挂载部位；组合标记仅用于动作和窗口筛选
             return bone != HumanBodyBones.LastBone;
         }
+    }
+
+    [Serializable]
+    public struct WeaponAttachmentBinding
+    {
+        [SerializeField, LabelText("挂载部位")]
+        private WeaponAttachmentPoint m_AttachmentPoint;
+        [SerializeField, LabelText("挂载节点")]
+        private Transform m_Target;
+
+        public WeaponAttachmentPoint AttachmentPoint => m_AttachmentPoint;
+        public Transform Target => m_Target;
     }
 
     [Flags]

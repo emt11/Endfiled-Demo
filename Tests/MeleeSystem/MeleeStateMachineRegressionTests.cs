@@ -256,6 +256,7 @@ public static class MeleeStateMachineRegressionTests
         });
 
         MeleeInputRegressionTests.Run(report.passed, report.failures);
+        MeleeCombatRegressionTests.Run(report.passed, report.failures);
         File.WriteAllText(Path.Combine(Directory.GetCurrentDirectory(), "results.json"), JsonUtility.ToJson(report, true));
         Debug.Log("Melee regression tests: " + report.passed.Count + " passed, " + report.failures.Count + " failed.");
         EditorApplication.Exit(report.failures.Count == 0 ? 0 : 1);
@@ -274,7 +275,7 @@ public static class MeleeStateMachineRegressionTests
         }
     }
 
-    private sealed class Fixture : IDisposable
+    internal sealed class Fixture : IDisposable
     {
         public readonly GameObject Root;
         public readonly AnimationSource Source;
@@ -363,7 +364,7 @@ public static class MeleeStateMachineRegressionTests
             return action;
         }
 
-        private T NewAsset<T>() where T : ScriptableObject
+        internal T NewAsset<T>() where T : ScriptableObject
         {
             var asset = ScriptableObject.CreateInstance<T>();
             m_Assets.Add(asset);
@@ -372,6 +373,8 @@ public static class MeleeStateMachineRegressionTests
 
         public void Dispose()
         {
+            var receiver = Root.GetComponent<DamageReceiver>();
+            if (receiver && receiver.Defense != null) Invoke(receiver, "OnDisable");
             Invoke(Controller, "OnDisable");
             Invoke(Controller, "OnDestroy");
             Invoke(Source, "OnDestroy");
@@ -390,10 +393,10 @@ public static class MeleeStateMachineRegressionTests
         throw new MissingFieldException(target.GetType().Name, name);
     }
 
-    private static T Get<T>(object target, string name) => (T)Field(target, name).GetValue(target);
-    private static void Set(object target, string name, object value) => Field(target, name).SetValue(target, value);
-    private static void Invoke(object target, string name) => target.GetType().GetMethod(name, Fields).Invoke(target, null);
-    private static void Equal<T>(T expected, T actual)
+    internal static T Get<T>(object target, string name) => (T)Field(target, name).GetValue(target);
+    internal static void Set(object target, string name, object value) => Field(target, name).SetValue(target, value);
+    internal static void Invoke(object target, string name) => target.GetType().GetMethod(name, Fields).Invoke(target, null);
+    internal static void Equal<T>(T expected, T actual)
     {
         if (!EqualityComparer<T>.Default.Equals(expected, actual))
             throw new Exception("Expected " + expected + ", got " + actual);

@@ -23,6 +23,7 @@ namespace GP
         Health,
         Mana,
         Defense,
-        Damage
+        Damage,
+        Stamina
     }
 }

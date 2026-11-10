@@ -25,7 +25,9 @@ MonoBehaviour:
     m_Notifies:
     - rid: 3230589533948739673
   m_StateNotifies:
-    m_StateNotifies: []
+    m_StateNotifies:
+    - rid: 3230589676265144410
+    - rid: 3230589676265144411
   m_EaseInDuration: 0.15
   m_EaseOutDuration: 0.15
   m_AnimationEaseIn:
@@ -84,7 +86,19 @@ MonoBehaviour:
     version: 2
     RefIds:
     - rid: 3230589533948739673
-      type: {class: AnimateNotify_SFX, ns: GP, asm: Assembly-CSharp}
+      type: {class: AudioAnimationNotify, ns: GP, asm: Assembly-CSharp}
       data:
         m_TriggerFrame: 10
         m_AudioAsset: {fileID: 11400000, guid: a1c5bbe0953e0a540a274926cd46d5fe, type: 2}
+    - rid: 3230589676265144410
+      type: {class: HitboxWindowNotify, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_StartFrame: 10
+        m_EndFrame: 20
+        m_AttachmentPoints: 2
+        m_HitDirection: 1
+    - rid: 3230589676265144411
+      type: {class: ComboInputWindowNotify, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_StartFrame: 15
+        m_EndFrame: 38

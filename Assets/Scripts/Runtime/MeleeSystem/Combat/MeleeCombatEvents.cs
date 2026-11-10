@@ -2,6 +2,12 @@ using UnityEngine;
 
 namespace GP
 {
+    public readonly struct TargetUnavailableEvent : IEventContext
+    {
+        public readonly IDamageable Target;
+        public TargetUnavailableEvent(IDamageable target) => Target = target;
+    }
+
     public readonly struct HitboxWindowEvent : IEventContext
     {
         public readonly bool IsOpen;

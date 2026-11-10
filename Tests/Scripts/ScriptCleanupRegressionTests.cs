@@ -66,6 +66,10 @@ public static class ScriptCleanupRegressionTests
 
     public static void Run()
     {
+        var arguments = Environment.GetCommandLineArgs();
+        var filterIndex = Array.IndexOf(arguments, "-arpgTestFilter");
+        SessionState.SetString(PhaseKey + ".Filter",
+            filterIndex >= 0 && filterIndex + 1 < arguments.Length ? arguments[filterIndex + 1] : "");
         Check("Player 脚本编译隔离", () =>
         {
             var settings = new UnityEditor.Build.Player.ScriptCompilationSettings
@@ -462,6 +466,128 @@ public static class ScriptCleanupRegressionTests
                 Equal(unit, pool.TakeUnit()); unit.StartTimer(1.5f); await Frames(5); Equal(1, pool.ActiveUnitCount);
                 await Frames(10); Equal(0, pool.ActiveUnitCount); Equal(1, pool.AvailableUnitCount); pool.ClearPool();
             });
+            await CheckAsync("空格防御在输入组件禁用和重新启用后正确解绑与恢复", async () =>
+            {
+                var root = Track(new GameObject("Defense input")); root.SetActive(false);
+                var attributes = root.AddComponent<CharacterAttributeComponent>();
+                var health = Track(ScriptableObject.CreateInstance<ValueAttributeAsset>());
+                Set(health, "m_AttributeName", ValueAttributeName.Health); Set(health, "m_BaseValue", 100);
+                var stamina = Track(ScriptableObject.CreateInstance<ValueAttributeAsset>());
+                Set(stamina, "m_AttributeName", ValueAttributeName.Stamina); Set(stamina, "m_BaseValue", 100);
+                Set(attributes.CharacterAttribute, "m_ValueAttributeAssetList", new List<ValueAttributeAsset> { health, stamina });
+                root.AddComponent<MeleeCombatController>();
+                var receiver = root.AddComponent<DamageReceiver>();
+                var defense = Track(ScriptableObject.CreateInstance<DefenseAsset>()); Set(defense, "m_Cooldown", 0f);
+                Set(receiver, "m_DefaultDefense", defense);
+                var input = root.AddComponent<MeleeInputHandler>(); root.SetActive(true);
+                await Frames(2);
+                var keyboard = InputSystem.AddDevice<Keyboard>(); InputSystem.EnableDevice(keyboard);
+                var previousBackground = InputSystem.settings.backgroundBehavior;
+                var previousEditorInput = InputSystem.settings.editorInputBehaviorInPlayMode;
+                InputSystem.settings.backgroundBehavior = InputSettings.BackgroundBehavior.IgnoreFocus;
+                InputSystem.settings.editorInputBehaviorInPlayMode = InputSettings.EditorInputBehaviorInPlayMode.AllDeviceInputAlwaysGoesToGameView;
+                try
+                {
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Space)); InputSystem.Update();
+                    Equal(true, receiver.Defense.IsDefending);
+                    input.enabled = false; Equal(false, receiver.Defense.IsDefending);
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState()); InputSystem.Update();
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Space)); InputSystem.Update();
+                    Equal(false, receiver.Defense.IsDefending);
+                    input.enabled = true;
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState()); InputSystem.Update();
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState(Key.Space)); InputSystem.Update();
+                    Equal(true, receiver.Defense.IsDefending);
+                    InputSystem.QueueStateEvent(keyboard, new KeyboardState()); InputSystem.Update();
+                    Equal(false, receiver.Defense.IsDefending);
+                }
+                finally
+                {
+                    InputSystem.RemoveDevice(keyboard); root.SetActive(false);
+                    InputSystem.settings.backgroundBehavior = previousBackground;
+                    InputSystem.settings.editorInputBehaviorInPlayMode = previousEditorInput;
+                }
+            });
+            await CheckAsync("粒子池等待子粒子结束并在复用时清理旧粒子", async () =>
+            {
+                var prefabObject = Track(new GameObject("FXPrefab")); prefabObject.SetActive(false);
+                var particles = prefabObject.AddComponent<ParticleSystem>();
+                var main = particles.main; main.loop = false; main.duration = 0.1f; main.playOnAwake = false;
+                main.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+                var emission = particles.emission; emission.enabled = false;
+                var child = new GameObject("Child particles"); child.transform.SetParent(prefabObject.transform, false);
+                var childParticles = child.AddComponent<ParticleSystem>();
+                var childMain = childParticles.main; childMain.loop = false; childMain.duration = 0.1f;
+                childMain.startLifetime = 0.75f; childMain.playOnAwake = false;
+                childMain.cullingMode = ParticleSystemCullingMode.AlwaysSimulate;
+                var childEmission = childParticles.emission; childEmission.enabled = false;
+                var prefab = prefabObject.AddComponent<RuntimePoolFXUnit>();
+                Set(prefab, "m_RecycleBehavior", RecycleBehavior.ByObjectSelf);
+                var asset = Track(ScriptableObject.CreateInstance<PoolAsset>());
+                Set(asset, "m_Prefab", prefab); Set(asset, "m_PoolMaxSize", 1);
+                var root = Track(new GameObject("FXPoolRoot"));
+                var pool = new RuntimePool(asset, root.transform); pool.LoadUnit(1);
+                var unit = (RuntimePoolFXUnit)pool.TakeUnit();
+                var point = new Vector3(5, 6, 7); var rotation = Quaternion.Euler(0, 90, 0);
+                unit.Play(point, rotation);
+                var liveChild = unit.transform.GetChild(0).GetComponent<ParticleSystem>(); liveChild.Emit(1);
+                await Frames(2); Equal(1, pool.ActiveUnitCount);
+                Near(point, unit.transform.position);
+                Expect(Quaternion.Angle(rotation, unit.transform.rotation) < 0.01f, "FX rotation changed");
+                await Frames(8); Equal(0, pool.ActiveUnitCount); Equal(1, pool.AvailableUnitCount);
+                Equal(unit, pool.TakeUnit()); unit.Play(Vector3.zero, Quaternion.identity); liveChild.Emit(1);
+                unit.RecycleUnit(); Equal(0, liveChild.particleCount);
+                Equal(unit, pool.TakeUnit()); unit.Play(point, rotation); liveChild.Emit(1);
+                await Frames(1); Equal(1, pool.ActiveUnitCount); pool.ClearPool();
+            });
+            await CheckAsync("锁定相机跟随移动目标且解锁保留当前朝向", async () =>
+            {
+                var character = Track(new GameObject("Lock character")).transform;
+                character.position = new Vector3(1000, 20, 1000);
+                var target = Track(new GameObject("Lock target")).transform;
+                target.position = character.position + Vector3.right * 5;
+                var rig = Track(new GameObject("Lock camera"));
+                var camera = rig.AddComponent<ThirdPersonCamera>(); camera.enabled = false;
+                camera.SetTrackingTarget(character); camera.SetFocusTarget(target);
+                await Frames(1); Invoke(camera, "LateUpdate");
+                Expect(Vector3.Dot(rig.transform.forward, (target.position + Vector3.up - character.position).normalized) > 0.99f,
+                    "Camera did not turn toward the locked target");
+                target.position = character.position + Vector3.back * 5;
+                var frozenRotation = rig.transform.rotation;
+                camera.SetFrozen(true);
+                await Frames(1); Invoke(camera, "LateUpdate");
+                Expect(Quaternion.Angle(frozenRotation, rig.transform.rotation) < 0.01f, "Frozen camera kept rotating");
+                camera.SetFrozen(false);
+                await Frames(1); Invoke(camera, "LateUpdate");
+                Expect(Vector3.Dot(rig.transform.forward, (target.position + Vector3.up - character.position).normalized) > 0.99f,
+                    "Camera did not follow the moving target");
+                var rotation = rig.transform.rotation; camera.SetFocusTarget(null);
+                Invoke(camera, "ReadCameraInput");
+                Expect(Quaternion.Angle(rotation, rig.transform.rotation) < 0.01f, "Camera jumped when unlocking");
+                camera.SetFocusTarget(target);
+                Object.DestroyImmediate(target.gameObject);
+                Invoke(camera, "ReadCameraInput");
+                Expect(Quaternion.Angle(rotation, rig.transform.rotation) < 0.01f, "Camera jumped after the focus target was destroyed");
+            });
+            await CheckAsync("相机锁定高低目标遵守俯仰范围且解锁不跳变", async () =>
+            {
+                var character = Track(new GameObject("Pitch character")).transform;
+                character.position = new Vector3(1000, 20, 1000);
+                var target = Track(new GameObject("Pitch target")).transform;
+                var camera = Track(new GameObject("Pitch camera")).AddComponent<ThirdPersonCamera>();
+                camera.enabled = false; camera.SetTrackingTarget(character);
+                foreach (var height in new[] { 100f, -100f })
+                {
+                    target.position = character.position + new Vector3(0, height, 1);
+                    camera.SetFocusTarget(target);
+                    await Frames(1); Invoke(camera, "LateUpdate");
+                    var pitch = -AngleUtils.NormalizeAngle180(camera.transform.eulerAngles.x);
+                    Expect(pitch >= -55.01f && pitch <= 60.01f, "Locked pitch exceeded the free-look range: " + pitch);
+                    var rotation = camera.transform.rotation;
+                    camera.SetFocusTarget(null); Invoke(camera, "ReadCameraInput");
+                    Expect(Quaternion.Angle(rotation, camera.transform.rotation) < 0.01f, "Camera jumped when unlocking a high or low target");
+                }
+            });
             await CheckAsync("空相机目标与零移动速度不会产生异常或NaN", () =>
             {
                 var camera = Track(new GameObject("CameraRig")).AddComponent<ThirdPersonCamera>(); Invoke(camera, "LateUpdate");
@@ -555,6 +681,41 @@ public static class ScriptCleanupRegressionTests
                 Set(camera, "m_EnableCameraCollision", false); Invoke(camera, "LateUpdate"); Near(rig.transform.position, child.transform.position);
                 return UniTask.CompletedTask;
             });
+            await CheckAsync("相机碰撞从带偏移的跟踪点检测", () =>
+            {
+                var target = Track(new GameObject("Offset target")).transform; target.position = new Vector3(1000, 20, 1000);
+                var rig = Track(new GameObject("Offset camera")); rig.SetActive(false);
+                var child = new GameObject("Camera"); child.transform.SetParent(rig.transform, false); child.AddComponent<Camera>();
+                var camera = rig.AddComponent<ThirdPersonCamera>();
+                Set(camera, "m_TrackingTarget", target); Set(camera, "m_TrackingOffset", Vector3.up * 2);
+                Set(camera, "m_CameraCollisionMask", (LayerMask)(1 << 31));
+                rig.SetActive(true); camera.enabled = false;
+                var origin = target.position + Vector3.up * 2;
+                var obstacle = Track(new GameObject("Offset obstacle")); obstacle.layer = 31;
+                obstacle.transform.position = origin + Vector3.back;
+                obstacle.AddComponent<BoxCollider>().size = new Vector3(1, 0.5f, 0.1f);
+                Physics.SyncTransforms(); Invoke(camera, "LateUpdate");
+                Expect(Vector3.Distance(child.transform.position, origin) < 1f, "Camera missed the obstacle at the tracking offset height");
+                Expect(Mathf.Abs(child.transform.position.y - origin.y) < 0.001f, "Collision changed the camera tracking height");
+                Object.DestroyImmediate(obstacle);
+                Physics.SyncTransforms(); Invoke(camera, "LateUpdate"); Near(rig.transform.position, child.transform.position);
+                return UniTask.CompletedTask;
+            });
+            await CheckAsync("相机碰撞不会跳过紧邻跟踪点的薄墙", () =>
+            {
+                var target = Track(new GameObject("Near wall target")).transform; target.position = new Vector3(1000, 20, 1000);
+                var rig = Track(new GameObject("Near wall camera")); rig.SetActive(false);
+                var child = new GameObject("Camera"); child.transform.SetParent(rig.transform, false); child.AddComponent<Camera>();
+                var camera = rig.AddComponent<ThirdPersonCamera>();
+                Set(camera, "m_TrackingTarget", target); Set(camera, "m_CameraCollisionMask", (LayerMask)(1 << 31));
+                rig.SetActive(true); camera.enabled = false;
+                var obstacle = Track(new GameObject("Near wall")); obstacle.layer = 31;
+                obstacle.transform.position = target.position + Vector3.back * 0.3f;
+                obstacle.AddComponent<BoxCollider>().size = new Vector3(1, 2, 0.05f);
+                Physics.SyncTransforms(); Invoke(camera, "LateUpdate");
+                Expect(Vector3.Distance(child.transform.position, target.position) < 0.1f, "Camera skipped the near wall and passed through it");
+                return UniTask.CompletedTask;
+            });
             await CheckAsync("零缓出动画按时完成且名称标签有效", async () =>
             {
                 var source = Animation(out var asset); source.PlayAnimation(asset);
@@ -578,6 +739,8 @@ public static class ScriptCleanupRegressionTests
         {
             Cleanup(); Time.captureDeltaTime = previousCapture;
             Application.logMessageReceived -= logHandler; UniTaskScheduler.UnobservedTaskException -= errorHandler;
+            if (s_Report.passed == 0 && s_Report.failures.Count == 0)
+                s_Report.failures.Add("No tests matched filter: " + SessionState.GetString(PhaseKey + ".Filter", ""));
             File.WriteAllText("results.json", JsonUtility.ToJson(s_Report, true));
             SessionState.SetInt(PhaseKey + ".Exit", s_Report.failures.Count == 0 ? 0 : 1); SessionState.SetString(PhaseKey, "finished");
             EditorApplication.isPlaying = false;
@@ -627,12 +790,14 @@ public static class ScriptCleanupRegressionTests
     private static async UniTask Frames(int count) { for (int i = 0; i < count; i++) await UniTask.NextFrame(PlayerLoopTiming.LastPostLateUpdate); }
     private static void Check(string name, Action action)
     {
+        if (!name.Contains(SessionState.GetString(PhaseKey + ".Filter", ""))) return;
         try { action(); s_Report.passed++; s_Report.passedTests.Add(name); }
         catch (Exception exception) { s_Report.failures.Add(name + ": " + exception); }
         finally { Cleanup(); }
     }
     private static async UniTask CheckAsync(string name, Func<UniTask> action)
     {
+        if (!name.Contains(SessionState.GetString(PhaseKey + ".Filter", ""))) return;
         try { await action(); s_Report.passed++; s_Report.passedTests.Add(name); }
         catch (Exception exception) { s_Report.failures.Add(name + ": " + exception); }
         finally { Cleanup(); }

@@ -2,7 +2,7 @@ using System;
 
 namespace GP
 {
-    /// <summary>一条不可变的固定数值修饰，保存数量和加减方向。</summary>
+    /// <summary>一条不可变的固定数值修饰，保存数量和加减方向</summary>
     public readonly struct ValueAttributeModifier
     {
         public readonly int Amount;

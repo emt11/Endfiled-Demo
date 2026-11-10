@@ -22,10 +22,12 @@ namespace GP
         private Vector2 m_CameraMinMaxPitch = new Vector2(-55f, 60f);
         [SerializeField, BoxGroup("Camera Settings", showLabel: false), LabelText("相机旋转平滑度:")]
         private float m_CameraRotationSmooth = 15f;
+        [SerializeField, BoxGroup("Target Lock", showLabel: false), LabelText("锁定目标观察偏移")]
+        private Vector3 m_FocusOffset = Vector3.up;
 
         [SerializeField, BoxGroup("Camera Collision", showLabel: false), LabelText("是否启用相机碰撞检测:")]
         private bool m_EnableCameraCollision = true;
-        [SerializeField, BoxGroup("Camera Collision", showLabel: false), ShowIf(nameof(m_EnableCameraCollision)), LabelText("相机碰撞检测半径:")]
+        [SerializeField, BoxGroup("Camera Collision", showLabel: false), ShowIf(nameof(m_EnableCameraCollision)), LabelText("相机碰撞检测半径:"), Min(0f)]
         private float m_CameraCollisionRadius = .2f;
         [SerializeField, BoxGroup("Camera Collision", showLabel: false), ShowIf(nameof(m_EnableCameraCollision)), LabelText("相机碰撞检测层:")]
         private LayerMask m_CameraCollisionMask;
@@ -40,6 +42,7 @@ namespace GP
         private Quaternion m_CameraRotation; // 相机朝向
 
         public Transform MainCamera { get; private set; }
+        public Transform FocusTarget { get; private set; }
 
         private void Awake()
         {
@@ -63,6 +66,7 @@ namespace GP
 
         private void LateUpdate()
         {
+            UpdateFocusRotation();
             ProcessCameraPosition(); // 处理相机的位置
             ProcessCameraCollision(); // 处理相机的碰撞
         }
@@ -76,12 +80,22 @@ namespace GP
 
         public void SetFrozen(bool isFreeze)
         {
+            // 冻结自由观察和锁定旋转，继续跟随角色并处理碰撞
             m_IsFrozen = isFreeze;
+        }
+
+        public void SetFocusTarget(Transform target)
+        {
+            FocusTarget = target;
+            // 解锁后从当前朝向继续自由观察，避免跳回锁定前的角度
+            m_CameraYaw = transform.eulerAngles.y;
+            m_CameraPitch = -AngleUtils.NormalizeAngle180(transform.eulerAngles.x);
+            m_CameraRotation = transform.rotation;
         }
 
         private void ReadCameraInput()
         {
-            if (m_IsFrozen) return;
+            if (m_IsFrozen || FocusTarget) return;
             if (GameManager.GameMode != GameMode.Game) return;
             if (!m_GameInputManager) return;
 
@@ -100,6 +114,22 @@ namespace GP
             m_CameraRotation = Quaternion.Slerp(m_CameraRotation, desiredRotation, Time.smoothDeltaTime * m_CameraRotationSmooth);
 
             MainCamera.rotation = m_CameraRotation;
+        }
+
+        private void UpdateFocusRotation()
+        {
+            if (m_IsFrozen || !FocusTarget || !m_TrackingTarget) return;
+            var direction = FocusTarget.position + m_FocusOffset - (m_TrackingTarget.position + m_TrackingOffset);
+            if (direction.sqrMagnitude < 0.0001f) return;
+            var euler = Quaternion.LookRotation(direction).eulerAngles;
+            // 锁定与自由观察使用同一俯仰范围，避免解锁时被输入逻辑拉回边界
+            var pitch = Mathf.Clamp(-AngleUtils.NormalizeAngle180(euler.x), m_CameraMinMaxPitch.x, m_CameraMinMaxPitch.y);
+            var desiredRotation = Quaternion.Euler(-pitch, euler.y, 0f);
+            m_CameraRotation = Quaternion.Slerp(m_CameraRotation, desiredRotation,
+                Time.smoothDeltaTime * m_CameraRotationSmooth);
+            MainCamera.rotation = m_CameraRotation;
+            m_CameraYaw = transform.eulerAngles.y;
+            m_CameraPitch = -AngleUtils.NormalizeAngle180(transform.eulerAngles.x);
         }
 
         private void ProcessCameraPosition()
@@ -122,10 +152,9 @@ namespace GP
                 return;
             }
 
-            // 取起点，相机追踪目标的位置往后移动 _radius 的距离(目的是防止相机进入角色模型内部)
-            var origin = Vector3.MoveTowards(m_TrackingTarget.position, MainCamera.position, m_CameraCollisionRadius);
-
-            var direction = MainCamera.position - origin; // 取方向，即原点到相机的方向
+            // 从实际观察点检测；向后预移起点会让球体落进近处障碍，漏掉这次碰撞
+            var origin = m_TrackingTarget.position + m_TrackingOffset;
+            var direction = MainCamera.position - origin;
 
             var targetDistance = direction.magnitude;
             if (Cast(origin, direction, m_CameraCollisionRadius, m_CameraCollisionMask, out var hit))

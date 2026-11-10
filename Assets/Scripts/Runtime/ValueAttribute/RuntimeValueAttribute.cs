@@ -34,7 +34,7 @@ namespace GP
             if (!IsValidInput(input)) return false;
 
             var previousCurrentValue = m_CurrentValue;
-            // 先使用 long 运算，避免在限制范围之前发生 int 溢出。
+            // 先使用 long 运算，避免在限制范围之前发生 int 溢出
             long updatedValue = input.Operation == ValueAttributeOperation.Add
                 ? (long)m_CurrentValue + input.Amount
                 : (long)m_CurrentValue - input.Amount;
@@ -103,7 +103,7 @@ namespace GP
             bool reachedZero = previousCurrentValue > 0 && m_CurrentValue == 0;
             ValueChanged?.Invoke(m_AttributeName, m_CurrentValue, m_MaxValue);
 
-            // 变化回调可能恢复当前值，此时不再发送过期的归零通知。
+            // 变化回调可能恢复当前值，此时不再发送过期的归零通知
             if (reachedZero && m_CurrentValue == 0)
                 ValueReachedZero?.Invoke(m_AttributeName);
 
@@ -117,7 +117,7 @@ namespace GP
         public readonly int Amount;
         public readonly ValueAttributeOperation Operation;
 
-        /// <summary>Amount 是非负数量，增减方向由 Operation 决定。</summary>
+        /// <summary>Amount 是非负数量，增减方向由 Operation 决定</summary>
         public bool IsValid => Amount >= 0 && (Operation == ValueAttributeOperation.Add || Operation == ValueAttributeOperation.Subtract);
 
         public ValueAttributeChangeInput(ValueAttributeName attributeName, int amount, ValueAttributeOperation operation)

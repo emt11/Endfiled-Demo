@@ -18,12 +18,15 @@ namespace GP
 
         public ValueInput<Vector2> MovementInput { get; private set; }
         public ValueInput<Vector2> LookInput { get; private set; }
+        public ValueInput<Vector2> ScrollInput { get; private set; }
 
         public EnhancedButton QKey { get; private set; }
         public EnhancedButton EKey { get; private set; }
         public EnhancedButton FKey { get; private set; }
         public EnhancedButton LMB { get; private set; }
         public EnhancedButton RMB { get; private set; }
+        public EnhancedButton MMB { get; private set; }
+        public EnhancedButton SpaceKey { get; private set; }
 
         private void OnEnable()
         {
@@ -73,12 +76,15 @@ namespace GP
 
             MovementInput = new ValueInput<Vector2>(m_InputActions.GamePlay.MovementKey);
             LookInput = new ValueInput<Vector2>(m_InputActions.GamePlay.MouseLook);
+            ScrollInput = new ValueInput<Vector2>(m_InputActions.GamePlay.MSB);
 
             QKey = new EnhancedButton(m_InputActions.GamePlay.Q);
             EKey = new EnhancedButton(m_InputActions.GamePlay.E);
             FKey = new EnhancedButton(m_InputActions.GamePlay.F);
             LMB = new EnhancedButton(m_InputActions.GamePlay.LMB);
             RMB = new EnhancedButton(m_InputActions.GamePlay.RMB);
+            MMB = new EnhancedButton(m_InputActions.GamePlay.MMB);
+            SpaceKey = new EnhancedButton(m_InputActions.GamePlay.Space);
         }
 
         public void AddInput(EnhancedInput input)

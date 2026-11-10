@@ -31,7 +31,7 @@ namespace GP
 
             EventChannel -= @event;
 
-            // 同步销毁令牌。保证事件存在令牌也存在，事件销毁令牌也销毁
+            // 同步销毁令牌，保证事件存在令牌也存在，事件销毁令牌也销毁
             // 避免出现令牌销毁了，事件还在
             return s_EventTokenBinder.RemoveEventToken(eventToken);
         }

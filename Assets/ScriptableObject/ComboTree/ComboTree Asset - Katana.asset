@@ -10,22 +10,22 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 6af714fe68e02164b84e6ba445146116, type: 3}
-  m_Name: New Combo Action Asset
+  m_Name: ComboTree Asset - Katana
   m_EditorClassIdentifier: Assembly-CSharp::GP.ComboTreeAsset
-  m_RootIds: ac744c74
-  m_TreeDataLink:
+  m_RootIds: ac744c747ec98b7b
+  m_Nodes:
     m_SerializedData:
-    - Key: 1951167660
+    - Key: 2072758654
       Value:
-        m_Id: 1951167660
+        m_Id: 2072758654
         m_ParentId: -1
-        m_ChildIds: d3c2b74c
+        m_ChildIds: beb47d2e
         m_ComboActionData:
-          m_ComboActionAsset: {fileID: 11400000, guid: 7b9c63edaf1e52e4ba31fbed2384b1a4, type: 2}
-    - Key: 1287111379
+          m_Action: {fileID: 11400000, guid: 7b9c63edaf1e52e4ba31fbed2384b1a4, type: 2}
+    - Key: 779990206
       Value:
-        m_Id: 1287111379
-        m_ParentId: 1951167660
+        m_Id: 779990206
+        m_ParentId: 2072758654
         m_ChildIds: 
         m_ComboActionData:
-          m_ComboActionAsset: {fileID: 11400000, guid: 78753f88b21342b41bd5c2e477fa2017, type: 2}
+          m_Action: {fileID: 11400000, guid: 78753f88b21342b41bd5c2e477fa2017, type: 2}

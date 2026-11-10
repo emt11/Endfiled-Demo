@@ -105,7 +105,7 @@ namespace GP
         {
             if (!m_PoolAsset || !m_PoolAsset.Prefab || !m_UnitParent) return null;
 
-            // 重用未激活的父物体，保证 InitializeUnit 先于第一次 OnEnable。
+            // 重用未激活的父物体，保证 InitializeUnit 先于第一次 OnEnable
             var unit = Object.Instantiate(m_PoolAsset.Prefab, m_InactiveParent);
             unit.gameObject.SetActive(false);
             unit.transform.SetParent(m_UnitParent, false);

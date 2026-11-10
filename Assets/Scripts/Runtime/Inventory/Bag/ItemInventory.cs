@@ -20,9 +20,9 @@ namespace GP
         public int InventoryMaxCapacity => m_InventoryMaxCapacity;
         public bool IsInventoryFull => m_ActiveItems.Count >= m_InventoryMaxCapacity;
 
-        /// <summary>物品及本次实际加入的数量。</summary>
+        /// <summary>物品及本次实际加入的数量</summary>
         public event Action<RuntimeItem, int> ItemAdded;
-        /// <summary>物品及移除后的剩余数量。</summary>
+        /// <summary>物品及移除后的剩余数量</summary>
         public event Action<RuntimeItem, int> ItemRemoved;
 
         public ItemInventory(CharacterBag bag, ItemCategory inventoryCategory)
@@ -144,7 +144,7 @@ namespace GP
                 return added;
             }
 
-            // 跨背包加入时创建属于新背包的实例，物品行为不会继续访问旧角色。
+            // 跨背包加入时创建属于新背包的实例，物品行为不会继续访问旧角色
             storedItem = ReferenceEquals(item.ItemInventory, this) && added == item.ItemStack
                 ? item : new RuntimeItem(item.ItemAsset, this, added);
             m_ActiveItems.Add(storedItem.RuntimeItemId, storedItem);
@@ -175,7 +175,7 @@ namespace GP
             if (added != count) return false;
             RemoveItemCore(item, count);
 
-            // 两边的数据全部提交后再通知，回调重入时不会再次转移已经移出的数量。
+            // 两边的数据全部提交后再通知，回调重入时不会再次转移已经移出的数量
             int remaining = item.ItemStack;
             target.ItemAdded?.Invoke(storedItem, count);
             ItemRemoved?.Invoke(item, remaining);

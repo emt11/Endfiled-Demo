@@ -7,6 +7,9 @@
 | 模块 | 当前入口与约定 |
 | --- | --- |
 | 近战 | [MeleeCombatController](../Assets/Scripts/Runtime/MeleeSystem/Combat/MeleeCombatController.cs) 协调武器、连招、命中和状态机；保留状态与动画回调所有权保护。输入配置、枚举及按钮绑定集中在 MeleeSystem/Input，通知上下文在 MeleeCombatEvents.cs。 |
+| 武器命中盒挂载 | [WeaponAttachment](../Assets/Scripts/Runtime/MeleeSystem/Attachment/WeaponAttachment.cs) 在武器资产中保存命中盒预制体和部位；[MeleeCombatController](../Assets/Scripts/Runtime/MeleeSystem/Combat/MeleeCombatController.cs) 的“命中盒挂载点”保存当前角色的部位与 Transform 引用，每个部位配置一次，未绑定时使用对应 Humanoid 骨骼。部位仍用于判定窗口筛选，命中盒保留预制体的局部变换。SampleScene 的 Player 已将 LeftHand / RightHand 分别绑定到两把刀，运行时无需字符串路径；更换武器模型时需更新绑定并重新装备 |
+| PartH 防御与受击 | [DamageReceiver](../Assets/Scripts/Runtime/MeleeSystem/HitDetection/DamageReceiver.cs) 通过现有属性系统处理伤害、无敌、霸体与死亡；RuntimeDefense 实现格挡、完美格挡和破防，受击动画由 Action 状态跟踪实际播放实例 |
+| PartH 锁定与反馈 | MeleeTargeting 提供最近目标和循环切换，MeleeInputHandler 接入空格／中键／滚轮，ThirdPersonCamera 跟随锁定目标；FXAsset 与 RuntimePoolFXUnit 提供池化粒子反馈，配置及接口变化见 [PartH 接入说明](PartHIntegration.md) |
 | 动画与根运动 | [AnimationSource](../Assets/Scripts/Runtime/Animation/AnimationSystem/AnimationSource.cs) 通过 IAnimationState.UseRootMotion 遵循动作配置；Animator 直接应用时对移动组件输出零权重，关闭根运动和完成时清空位移、旋转与权重。 |
 | Motion Warping | [AnimationMotionWarpingControl](../Assets/Scripts/Runtime/Animation/AnimationMotionWarping/AnimationMotionWarpingControl.cs) 保存目标局部锚点并随目标变换更新；仅有效窗口接管变换，跳过过期窗口，零长度窗口立即完成，取消或目标失效清理上下文。显式 Warping 独立于普通根运动开关。 |
 | Warping 编辑器 | [MotionWarpingAssetEditor](../Assets/Scripts/Editor/Animation/MotionWarpingAssetEditor.cs) 使用临时模型采样，保留原算法，完成后记录 Undo 并标脏资产；配置中的原模型不参与修改。 |

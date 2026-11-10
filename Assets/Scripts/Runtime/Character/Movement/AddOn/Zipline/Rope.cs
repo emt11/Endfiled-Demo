@@ -47,7 +47,7 @@ namespace GP
 
         public bool IsInverseDirection(Vector3 position, float angle)
         {
-            // 如果玩家在终点或者中间段，方向是相对的则反转。
+            // 如果玩家在终点或者中间段，方向是相对的则反转
 
             var startPoint = Vector3.Distance(position, m_StartPosition.position) > 3.5f;
             var endPoint = Vector3.Distance(position, m_EndPosition.position) > 3.5f;

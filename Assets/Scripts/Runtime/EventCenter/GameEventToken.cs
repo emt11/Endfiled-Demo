@@ -17,7 +17,7 @@ namespace GP
         {
             if (m_IsDisposed || m_EventDelegate == null) return;
 
-            // 先更新状态，允许绑定器清空集合后再批量注销，也避免重入重复注销。
+            // 先更新状态，允许绑定器清空集合后再批量注销，也避免重入重复注销
             m_IsDisposed = true;
             var eventDelegate = m_EventDelegate;
             m_EventDelegate = null;

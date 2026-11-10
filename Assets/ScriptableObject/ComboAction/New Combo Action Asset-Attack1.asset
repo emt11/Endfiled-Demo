@@ -14,4 +14,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: Assembly-CSharp::GP.ComboActionAsset
   m_ActionName: "\u653B\u51FB1"
   m_AnimationAsset: {fileID: 11400000, guid: ffe2a698f590db340b31fe15f0edf5da, type: 2}
-  m_ActionTriggerSignal: 1
+  m_InputTrigger: 1
+  m_InputSignal: 1
+  m_HitboxPoints: 06000000
+  m_Damage: 10
