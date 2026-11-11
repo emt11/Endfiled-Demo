@@ -1,0 +1,104 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1efc0b277aa1d564084cb9570654b9b3, type: 3}
+  m_Name: Attack1
+  m_EditorClassIdentifier: Assembly-CSharp::GP.AnimateAsset
+  m_AnimationClip: {fileID: -4453356587033832775, guid: dfddd0567ebfa194da26d9fe3663cc76, type: 3}
+  m_Speed: 1
+  m_UseRootMotion: 1
+  m_UseAvatarMask: 0
+  m_AvatarMask: {fileID: 0}
+  m_AnimationMaskBlendMode: 0
+  m_AnimationName: 
+  m_AnimationTag: 
+  m_AnimationPriority: 1
+  m_Notifies:
+    m_Notifies:
+    - rid: 3230589533948739673
+  m_StateNotifies:
+    m_StateNotifies:
+    - rid: 3230589676265144410
+    - rid: 3230589676265144411
+  m_EaseInDuration: 0.15
+  m_EaseOutDuration: 0.15
+  m_AnimationEaseIn:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_AnimationEaseOut:
+    serializedVersion: 2
+    m_Curve:
+    - serializedVersion: 3
+      time: 0
+      value: 1
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    - serializedVersion: 3
+      time: 1
+      value: 0
+      inSlope: 0
+      outSlope: 0
+      tangentMode: 0
+      weightedMode: 0
+      inWeight: 0
+      outWeight: 0
+    m_PreInfinity: 2
+    m_PostInfinity: 2
+    m_RotationOrder: 4
+  m_SyncAnimation: 0
+  m_SyncAnimationAsset: {fileID: 0}
+  m_UseAnimationWarp: 1
+  m_WarpAsset: {fileID: 11400000, guid: b86d9996ad780b84aaf111c57566fd10, type: 2}
+  references:
+    version: 2
+    RefIds:
+    - rid: 3230589533948739673
+      type: {class: AudioAnimationNotify, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_TriggerFrame: 10
+        m_AudioAsset: {fileID: 11400000, guid: a1c5bbe0953e0a540a274926cd46d5fe, type: 2}
+    - rid: 3230589676265144410
+      type: {class: HitboxWindowNotify, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_StartFrame: 10
+        m_EndFrame: 20
+        m_AttachmentPoints: 2
+        m_HitDirection: 1
+    - rid: 3230589676265144411
+      type: {class: ComboInputWindowNotify, ns: GP, asm: Assembly-CSharp}
+      data:
+        m_StartFrame: 15
+        m_EndFrame: 38

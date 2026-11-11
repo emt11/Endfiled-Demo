@@ -1101,6 +1101,7 @@ MonoBehaviour:
   m_CharacterAttribute:
     m_ValueAttributeAssetList:
     - {fileID: 11400000, guid: d7836dd1b18667b4e9e9b96b9157b313, type: 2}
+    - {fileID: 11400000, guid: 98ed05c4c091b9144a256a1935db29f7, type: 2}
 --- !u!1 &2009588820
 GameObject:
   m_ObjectHideFlags: 0
@@ -1114,6 +1115,8 @@ GameObject:
   - component: {fileID: 2009588823}
   - component: {fileID: 2009588822}
   - component: {fileID: 2009588821}
+  - component: {fileID: 2009588827}
+  - component: {fileID: 2009588826}
   m_Layer: 8
   m_Name: Dummy
   m_TagString: Untagged
@@ -1133,9 +1136,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a81ef652b4b91ae4ebdaf579010a0c72, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::GP.DamageReceiver
-  m_DefaultReactions: {fileID: 0}
-  m_DefaultDefense: {fileID: 0}
-  m_DeathAnimation: {fileID: 0}
+  m_DefaultReactions: {fileID: 11400000, guid: bfad8b323e8f0794896bc0428568282c, type: 2}
+  m_DefaultDefense: {fileID: 11400000, guid: 8ab69e4621971a34fabdffb68768a77b, type: 2}
+  m_DeathAnimation: {fileID: 11400000, guid: 77d5109de20f47e46a9714d22fd4b0db, type: 2}
   m_DeathSound: {fileID: 0}
   m_DeathColliders: []
 --- !u!114 &2009588822
@@ -1153,6 +1156,7 @@ MonoBehaviour:
   m_CharacterAttribute:
     m_ValueAttributeAssetList:
     - {fileID: 11400000, guid: d7836dd1b18667b4e9e9b96b9157b313, type: 2}
+    - {fileID: 11400000, guid: 98ed05c4c091b9144a256a1935db29f7, type: 2}
 --- !u!54 &2009588823
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -1221,6 +1225,42 @@ Transform:
   - {fileID: 8780854298900890321}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: -154.739, z: 0}
+--- !u!114 &2009588826
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009588820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c8018e25af4973847b440b8059589641, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GP.MeleeInputHandler
+  m_TargetRadius: 10
+  m_TargetLayers:
+    serializedVersion: 2
+    m_Bits: 128
+  m_Camera: {fileID: 0}
+--- !u!114 &2009588827
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2009588820}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c842c08ad0d9a014d9ae26c946a6066c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::GP.MeleeCombatController
+  m_StartingWeapon: {fileID: 11400000, guid: c465db30fe5e201448da657444edfbee, type: 2}
+  m_WeaponAttachmentBindings:
+  - m_AttachmentPoint: 2
+    m_Target: {fileID: 4864072846632779142}
+  - m_AttachmentPoint: 4
+    m_Target: {fileID: 6888188814245009185}
+  m_FocusTarget: {fileID: 0}
 --- !u!134 &2082364815
 PhysicsMaterial:
   m_ObjectHideFlags: 0

@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1efc0b277aa1d564084cb9570654b9b3, type: 3}
-  m_Name: New-AnimationAsset-Attack2
+  m_Name: Hit 1
   m_EditorClassIdentifier: Assembly-CSharp::GP.AnimationAsset
-  m_AnimationClip: {fileID: -6794547245362133772, guid: 6f7b47017836fce4a83c6b27c1ebe8d6, type: 3}
+  m_AnimationClip: {fileID: -3935363005479961316, guid: e341001c0749c774dbfaef16e6ed210a, type: 3}
   m_Speed: 1
   m_UseRootMotion: 1
   m_UseAvatarMask: 0
@@ -22,14 +22,9 @@ MonoBehaviour:
   m_AnimationTag: 
   m_AnimationPriority: 1
   m_Notifies:
-    m_Notifies:
-    - rid: 3230589583431041102
-    - rid: 3230589583431041103
-    - rid: 3230589676265144416
+    m_Notifies: []
   m_StateNotifies:
-    m_StateNotifies:
-    - rid: 3230589676265144414
-    - rid: 3230589676265144415
+    m_StateNotifies: []
   m_EaseInDuration: 0.15
   m_EaseOutDuration: 0.15
   m_AnimationEaseIn:
@@ -82,36 +77,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_SyncAnimation: 0
   m_SyncAnimationAsset: {fileID: 0}
-  m_UseAnimationWarp: 1
-  m_WarpAsset: {fileID: 11400000, guid: eb1e1f3fcddb1e345b9fe52207a26093, type: 2}
+  m_UseAnimationWarp: 0
+  m_WarpAsset: {fileID: 0}
   references:
     version: 2
-    RefIds:
-    - rid: 3230589583431041102
-      type: {class: AudioAnimationNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_TriggerFrame: 12
-        m_AudioAsset: {fileID: 11400000, guid: a1c5bbe0953e0a540a274926cd46d5fe, type: 2}
-    - rid: 3230589583431041103
-      type: {class: AudioAnimationNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_TriggerFrame: 18
-        m_AudioAsset: {fileID: 11400000, guid: a1c5bbe0953e0a540a274926cd46d5fe, type: 2}
-    - rid: 3230589676265144414
-      type: {class: HitboxWindowNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_StartFrame: 10
-        m_EndFrame: 13
-        m_AttachmentPoints: 4
-        m_HitDirection: 1
-    - rid: 3230589676265144415
-      type: {class: HitboxWindowNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_StartFrame: 17
-        m_EndFrame: 20
-        m_AttachmentPoints: 2
-        m_HitDirection: 1
-    - rid: 3230589676265144416
-      type: {class: ClearHitTargetsNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_TriggerFrame: 14
+    RefIds: []

@@ -22,9 +22,9 @@ MonoBehaviour:
     m_AttachmentPoint: 2
   - m_HitboxPrefab: {fileID: 4345933644229818136, guid: d1bd885430a699c41bb6886b9b4f2e11, type: 3}
     m_AttachmentPoint: 4
-  m_DamageReactions: {fileID: 0}
-  m_ParriedReactions: {fileID: 0}
-  m_Defense: {fileID: 0}
+  m_DamageReactions: {fileID: 11400000, guid: bfad8b323e8f0794896bc0428568282c, type: 2}
+  m_ParriedReactions: {fileID: 11400000, guid: bfad8b323e8f0794896bc0428568282c, type: 2}
+  m_Defense: {fileID: 11400000, guid: 8ab69e4621971a34fabdffb68768a77b, type: 2}
   m_PrimaryInput:
     m_Trigger: 1
     m_InputSignal: 1

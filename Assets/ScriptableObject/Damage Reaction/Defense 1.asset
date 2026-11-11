@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: be1713b1fe2f128448473eedc7db909b, type: 3}
+  m_Name: Defense 1
+  m_EditorClassIdentifier: Assembly-CSharp::GP.DamageReactionAsset
+  m_Reactions:
+  - m_HitDirection: 11
+    m_UseMinimumDamage: 0
+    m_MinimumDamage: 0
+    m_Animation: {fileID: 11400000, guid: dd76c4228086305439d0c7479d68985b, type: 2}
+    m_AllowCancel: 1
+    m_CancelAfter: 0.5

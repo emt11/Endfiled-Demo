@@ -10,9 +10,9 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 1efc0b277aa1d564084cb9570654b9b3, type: 3}
-  m_Name: New-AnimateAsset-Attack1
-  m_EditorClassIdentifier: Assembly-CSharp::GP.AnimateAsset
-  m_AnimationClip: {fileID: -4453356587033832775, guid: dfddd0567ebfa194da26d9fe3663cc76, type: 3}
+  m_Name: Defense 1
+  m_EditorClassIdentifier: Assembly-CSharp::GP.AnimationAsset
+  m_AnimationClip: {fileID: 4382787069131625619, guid: 4c6cb7272fc4f6b43a65bf83d1f329b5, type: 3}
   m_Speed: 1
   m_UseRootMotion: 1
   m_UseAvatarMask: 0
@@ -22,12 +22,9 @@ MonoBehaviour:
   m_AnimationTag: 
   m_AnimationPriority: 1
   m_Notifies:
-    m_Notifies:
-    - rid: 3230589533948739673
+    m_Notifies: []
   m_StateNotifies:
-    m_StateNotifies:
-    - rid: 3230589676265144410
-    - rid: 3230589676265144411
+    m_StateNotifies: []
   m_EaseInDuration: 0.15
   m_EaseOutDuration: 0.15
   m_AnimationEaseIn:
@@ -80,25 +77,8 @@ MonoBehaviour:
     m_RotationOrder: 4
   m_SyncAnimation: 0
   m_SyncAnimationAsset: {fileID: 0}
-  m_UseAnimationWarp: 1
-  m_WarpAsset: {fileID: 11400000, guid: b86d9996ad780b84aaf111c57566fd10, type: 2}
+  m_UseAnimationWarp: 0
+  m_WarpAsset: {fileID: 0}
   references:
     version: 2
-    RefIds:
-    - rid: 3230589533948739673
-      type: {class: AudioAnimationNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_TriggerFrame: 10
-        m_AudioAsset: {fileID: 11400000, guid: a1c5bbe0953e0a540a274926cd46d5fe, type: 2}
-    - rid: 3230589676265144410
-      type: {class: HitboxWindowNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_StartFrame: 10
-        m_EndFrame: 20
-        m_AttachmentPoints: 2
-        m_HitDirection: 1
-    - rid: 3230589676265144411
-      type: {class: ComboInputWindowNotify, ns: GP, asm: Assembly-CSharp}
-      data:
-        m_StartFrame: 15
-        m_EndFrame: 38
+    RefIds: []
